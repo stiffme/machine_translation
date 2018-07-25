@@ -6,9 +6,11 @@ import numpy as np
 class MyTestCase(unittest.TestCase):
     def test_generate_dataset(self):
         m = 10
+        Tx = 30
+        Ty = 10
         dataset, human, machine, inv_machine = generate_dataset(m)
         assert np.shape(dataset)[0] == m
-        X, Y, Xoh, Yoh = preprocess_dataset(dataset, human, machine, 30, 30)
+        X, Y, Xoh, Yoh = preprocess_dataset(dataset, human, machine, Tx, Ty)
         inv_human = {v: k for k, v in human.items()}
 
         for i in range(m):
@@ -17,11 +19,14 @@ class MyTestCase(unittest.TestCase):
             cx = ''.join(tensor_to_string(x, inv_human)[:len(dx)])
             assert cx == dx
 
+
         for i in range(m):
             dy = dataset[i][1]
             y = Y[i]
             cy = ''.join(tensor_to_string(y, inv_machine)[:len(dy)])
             assert cy == dy
+        assert (m, Tx) == np.shape(X)
+        assert (m, Ty) == np.shape(Y)
 
     def test_string_to_tensor(self):
         vocab = dict(zip(['a', 'b', 'c', '<unk>', '<pad>'], range(5)))

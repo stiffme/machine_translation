@@ -139,9 +139,9 @@ def preprocess_dataset(dataset, human_vocab, machine_vocab, Tx, Ty):
                           string_to_tensor(y, Ty, machine_vocab), Y)))
 
     Xoh = np.array(list(map(lambda tx:
-                            keras.utils.to_categorical(tx), X)))
+                            keras.utils.to_categorical(tx, num_classes=len(human_vocab)), X)))
 
     Yoh = np.array(list(map(lambda ty:
-                            keras.utils.to_categorical(ty), Y)))
+                            keras.utils.to_categorical(ty, num_classes=len(machine_vocab)), Y)))
 
     return X, Y, Xoh, Yoh
