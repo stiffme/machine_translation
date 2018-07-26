@@ -116,7 +116,7 @@ def tensor_to_string(tensor, vocab):
     :return: the mapped list of the string
     """
 
-    ret = [vocab.get(i) for i in tensor]
+    ret = [vocab.get(str(i)) for i in tensor]
     return ret
 
 
