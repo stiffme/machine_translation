@@ -6,7 +6,7 @@ from decoder import decoder
 import json
 
 def main():
-    m = 20000
+    m = 40000
     dataset, human, machine, inv_machine = generate_dataset(m)
     Tx = 30
     Ty = 10
@@ -62,7 +62,6 @@ def create_model(Tx, Ty, n_a, n_s, human, machine):
 
     # a [m, Tx, 2*n_a]
     a = encoder(n_a, x_input)
-    print('a shape is ' + str(a.shape))
 
     # outputs [Ty, m, len(machine_vocab)]
     outputs = decoder(Tx, Ty, n_s, machine, a, hidden, cell)
